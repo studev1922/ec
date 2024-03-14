@@ -3,6 +3,7 @@ export default {
     keyTable: {
         users: 'uid',
         roles: 'rid',
+        authorities: ['u_id', 'r_id'],
         categories: 'cgid',
         products: 'prdid',
     },
@@ -15,7 +16,7 @@ export default {
         },
         roles: {
             rid: 'INTEGER PRIMARY KEY AUTOINCREMENT',
-            name: 'TEXT NOT NULL',
+            r_name: 'TEXT NOT NULL',
         },
         authorities: {
             u_id: 'INTEGER REFERENCES USERS(uid) ON UPDATE CASCADE ON DELETE CASCADE',

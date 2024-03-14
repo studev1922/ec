@@ -2,7 +2,34 @@ export default {
     users: [
         { name: 'Owner on System', username: 'owner', password: '123' },
         { name: 'Admin on System', username: 'amdin', password: '123' },
-        { name: 'Staff on System', username: 'staff', password: '123' }
+        { name: 'Staff on System', username: 'staff', password: '123' },
+        { name: 'Customer on System', username: 'customer', password: '123' },
+        { name: 'Guest on System', username: 'guest', password: '123' },
+    ],
+    roles: [
+        { r_name: 'OWNER' },
+        { r_name: 'ADMIN' },
+        { r_name: 'STAFF' },
+        { r_name: 'CUSTOMER' },
+        { r_name: 'GUEST' },
+    ],
+    authorities: [
+        { u_id: 1, r_id: 1 },
+        { u_id: 1, r_id: 2 },
+        { u_id: 1, r_id: 3 },
+        { u_id: 1, r_id: 4 },
+        { u_id: 1, r_id: 5 },
+
+        { u_id: 2, r_id: 2 },
+        { u_id: 2, r_id: 3 },
+        { u_id: 2, r_id: 4 },
+        { u_id: 2, r_id: 5 },
+
+        { u_id: 3, r_id: 3 },
+        { u_id: 3, r_id: 5 },
+
+        { u_id: 4, r_id: 4 },
+        { u_id: 4, r_id: 5 },
     ],
     categories: [
         { cg_name: 'Khác' },
