@@ -56,7 +56,8 @@ export default function (application, path) {
     // Rounters
     const another_paths = [], APIs = {
         categories: ['cg_name', 'cg_create_at'],
-        products: ['prd_name', 'prd_salary', 'cg_pr_id']
+        products: ['prd_name', 'prd_salary', 'cg_pr_id'],
+        users: ['name', 'username', 'password']
     }
     Object.keys(APIs).forEach(key => {
         another_paths.push(`/api/${key}`);
@@ -70,6 +71,5 @@ export default function (application, path) {
             message: `'${req.url}' not found!`,
         })
     );
-
 
 };
