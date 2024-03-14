@@ -12,6 +12,11 @@
     </thead>
     <tbody>
         <tr>
+            <td>main start</td>
+            <td>npm start</td>
+            <td>Start The Server (backend)</td>
+        </tr>
+        <tr>
             <td>main test</td>
             <td>npm test</td>
             <td>main's test case</td>
