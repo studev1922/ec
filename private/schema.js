@@ -19,7 +19,7 @@ export default {
         },
         authorities: {
             u_id: 'INTEGER REFERENCES USERS(uid) ON UPDATE CASCADE ON DELETE CASCADE',
-            r_id: 'INTEGER REFERENCES ROLES(rid) ON UPDATE CASCADE ON DELETE RESTRICT'
+            r_id: 'INTEGER REFERENCES ROLES(rid) ON UPDATE CASCADE ON DELETE RESTRICT;\nUNIQUE(u_id, r_id);'
         },
         categories: {
             cgid: 'INTEGER PRIMARY KEY AUTOINCREMENT',
