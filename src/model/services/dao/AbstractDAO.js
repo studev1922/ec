@@ -10,7 +10,7 @@ export default class AbstractDAO {
         this.keyID = keyID || fields[0];
     }
 
-    #_pr = (query, isReturns) => {
+    _pr = (query, isReturns) => {
         log(query, style.fg.magenta);
         return new Promise(
             (res, rej) => db[isReturns ? 'all' : 'exec']
@@ -21,9 +21,9 @@ export default class AbstractDAO {
         );
     }
 
-    select_all(fields) {
-        let query = sql.qSelect(this.table, fields || this.fields);
-        return this.#_pr(query, true);
+    select_all(fields, by) {
+        let query = sql.qSelect(this.table, fields || this.fields, by);
+        return this._pr(query, true);
     }
 
     insert(data, fields, returns = '*') {
@@ -33,7 +33,7 @@ export default class AbstractDAO {
             fields || this.fields,
             returns
         );
-        return this.#_pr(query, returns);
+        return this._pr(query, returns);
     }
 
     update(data, fields, returns = '*') {
@@ -44,11 +44,11 @@ export default class AbstractDAO {
             fields || this.fields,
             returns
         )
-        return this.#_pr(query);
+        return this._pr(query);
     }
 
-    delete(obj = { [this.keyID]: -1 }, isAbsolute) {
+    delete(obj = sql._toKey(this.keyID), isAbsolute) {
         let query = sql.qDelete(this.table, obj, isAbsolute);
-        return this.#_pr(query, false);
+        return this._pr(query, false);
     }
 }
