@@ -23,7 +23,7 @@ async function response(_pr, res) {
 function router(application, dao, path, actionFields) {
     application.use(express.json());
     application
-        .get(path, (req, res) => response(dao.select_all(req.query['f'] || req.body['fields']), res))
+        .get(path, (req, res) => response(dao.select_all(req.query['f'] || req.body['fields'], req.body['by']), res))
         .post(path, (req, res) => {
             let { body } = req;
             let fields = req.query['fields'] || actionFields;

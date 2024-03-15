@@ -5,13 +5,28 @@ const actions = {
     after: 'AFTER', before: 'BEFORE'
 }
 
-
 const _execValue = (value) => typeof value === 'string' ? `'${value}'` : value;
 const _fields = (fields) => fields ? `(${fields})` : '';
 const _byFields = (obj, fields) => fields.reduce((pre, cur) => {
     if (obj.hasOwnProperty(cur)) pre[cur] = obj[cur];
     return pre;
 }, {});
+const _conditions = (obj = { id: -1 }, isAbsolute) => {
+    let condition = [], withCond = isAbsolute ? ' AND ' : ' OR ';
+
+    for (const by of Object.keys(obj)) {
+        let v = obj[by];
+        v = Array.isArray(v)
+            ? `${by} IN (${v.map(_execValue)})`
+            : typeof v === 'string' && (v.startsWith('%') || v.endsWith('%'))
+                ? `${by} LIKE ${_execValue(v)}`
+                : `${by} = ${_execValue(v)}`;
+
+        condition.push(v);
+    }
+
+    return condition.join(withCond);
+}
 
 const create = {
     /**
@@ -36,7 +51,7 @@ const create = {
     triggerIfNotExist: (trigger_name, isAfter, actions = ['INSERT'], on_table, trigger_body = '') => `DROP TRIGGER IF EXISTS ${table_name};\n${create.trigger(trigger_name, isAfter, actions, on_table, trigger_body)}`,
 }
 
-const qSelect = (table, fields = '*') => `SELECT ${fields} FROM ${table}`;
+const qSelect = (table, fields = '*', by, isAbsolute) => `SELECT ${fields} FROM ${table} ${by ? 'WHERE ' + _conditions(by, isAbsolute) : ''}`;
 
 const qInsert = (table, data, fields, returning) => {
     returning = typeof returning === 'undefined' ? '' : !returning ? ' RETURNING *' : ` RETURNING ${returning}`;
@@ -62,31 +77,16 @@ const qUpdate = (table, data, by, fields, returning) => {
     returning = typeof returning === 'undefined' ? '' : !returning ? ' RETURNING *' : ` RETURNING ${returning}`;
     let isArray = Array.isArray(data);
     let _set = (obj) => fields.map(f => typeof obj[f] === 'undefined' ? null : `${f}=${_execValue(obj[f])}`).filter(e => e);
-    let _updateOne = (obj) => `UPDATE ${table} SET ${_set(obj)} WHERE ${by}=${obj[by]}${returning};`
+    let _updateOne = (obj) => `UPDATE ${table} SET ${_set(obj)} WHERE ${by}=${obj[by]} ${returning};`
 
     if (!fields || fields === '*') fields = Object.keys(isArray ? data[0] : data);
     else if (typeof fields === 'string') fields = fields.split(',');
 
     return isArray ? data.map(_updateOne) : _updateOne(data);
 }
-const qDelete = (table, obj = { id: -1 }, isAbsolute = true) => {
-    let condition = [], withCond = isAbsolute ? ' AND ' : ' OR ';
-
-    for (const by of Object.keys(obj)) {
-        let v = obj[by];
-        v = Array.isArray(v)
-            ? `${by} IN (${v.map(_execValue)})`
-            : typeof v === 'string' && (v.startsWith('%') || v.endsWith('%'))
-                ? `${by} LIKE ${_execValue(v)}`
-                : `${by} = ${_execValue(v)}`;
-
-        condition.push(v);
-    }
-
-    return `DELETE FROM ${table} WHERE ${condition.join(withCond)}`
-}
+const qDelete = (table, obj = { id: -1 }, isAbsolute = true) => `DELETE FROM ${table} WHERE ${_conditions(obj, isAbsolute)}`;
 
 export default {
     actions, create,
-    qSelect, qInsert, qUpdate, qDelete,
+    qSelect, qInsert, qUpdate, qDelete
 };
