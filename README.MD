@@ -1,6 +1,8 @@
 # IMPORTED FRUIT-SHOP
 
-## TEST CASE
+***DATABASE CREATING...***
+
+## TERMINAL SCRIPTS
 <table>
     <caption>TEST CASE COMMAND</caption>
     <thead>
