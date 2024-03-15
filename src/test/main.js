@@ -10,6 +10,5 @@ const data2 = [
     { cg_id: 4, cg_name: 'Nho', cg_create_at: 1709996608 }
 ];
 
-let table = 'CATEGORIES'
+let keyID = ['id_1', 'id_2']
 
-db.all(qSelect(table), console.log);
