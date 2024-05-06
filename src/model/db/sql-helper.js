@@ -52,7 +52,6 @@ const create = {
 }
 
 const qSelect = (table, fields = '*', by, isAbsolute) => `SELECT ${fields} FROM ${table} ${by ? 'WHERE ' + _conditions(by, isAbsolute) : ''}`;
-
 const qInsert = (table, data, fields, returning) => {
     returning = typeof returning === 'undefined' ? '' : !returning ? ' RETURNING *' : ` RETURNING ${returning}`;
     let isArray = Array.isArray(data);

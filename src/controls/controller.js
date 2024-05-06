@@ -21,18 +21,22 @@ async function response(_pr, res) {
  * @param {Array<String>} actionFields 
  */
 function router(application, dao, path, actionFields) {
-    application.use(express.json());
+    application.use(express.json({ limit: '10mb' }));
+    application.use(express.urlencoded({ limit: '10mb', extended: true }));
+
     application
         .get(path, (req, res) => response(dao.select_all(req.query['f'] || req.body['fields'], req.body['by']), res))
         .post(path, (req, res) => {
             let { body } = req;
             let fields = req.query['f'] || req.query['fields'] || actionFields;
-            return response(dao.insert(body, fields), res);
+            let returning = req.query['r'] || req.query['returning'];
+            return response(dao.insert(body, fields, returning), res);
         })
         .put(path, (req, res) => {
             let { body } = req;
             let fields = req.query['f'] || req.query['fields'] || actionFields;
-            return response(dao.update(body, fields), res);
+            let returning = req.query['r'] || req.query['returning'];
+            return response(dao.update(body, fields, returning), res);
         })
         .delete(path, (req, res) => {
             let { body, query } = req, isAbsolute = query['isAbsolute'];
