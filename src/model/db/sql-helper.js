@@ -60,17 +60,24 @@ const qInsert = (table, data, fields, returning) => {
     if (fields === '*') fields = Object.keys(isArray ? data[0] : data);
     else if (typeof fields === 'string' && fields.length) fields = fields.split(',');
 
-    data = fields
+    let _orReturning = (values) => returning ? values : values.join('),(');
+    let constraint = _fields(fields);
+    let rows = fields
         ? (isArray
-            ? data.map(e => Object.values(_byFields(e, fields)).map(_execValue)).join('),(')
+            ? _orReturning(data.map(e => Object.values(_byFields(e, fields)).map(_execValue)))
             : Object.values(_byFields(data, fields)).map(_execValue)
         )
         : (isArray
-            ? data.map(e => Object.values(e).map(_execValue)).join('),(')
+            ? _orReturning(data.map(e => Object.values(e).map(_execValue)))
             : Object.values(data).map(_execValue)
         );
 
-    return `INSERT INTO ${table}${_fields(fields)} VALUES (${data})${returning};`;
+    let _once = (row) => `INSERT INTO ${table}${constraint} VALUES (${row})${returning};`
+    return returning
+        ? isArray
+            ? rows.map(_once)
+            : _once(rows)
+        : _once(rows);
 }
 
 const qUpdate = (table, data, by, fields, returning) => {
