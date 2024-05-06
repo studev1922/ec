@@ -10,10 +10,35 @@ const data2 = [
     { cgid: 4, cg_name: 'Nho', cg_create_at: 1709996608 }
 ];
 
-let keyID = ['id_1', 'id_2']
+const generateUniquePairs = (characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') => {
+    const allPairs = [];
+    for (let i = 0; i < characters.length; i++) {
+        for (let j = i + 1; j < characters.length; j++) {
+            allPairs.push(`${characters[i]}${characters[j]}`);
+            allPairs.push(`${characters[j]}${characters[i]}`); // Add both orders for uniqueness
+        }
+    }
+    return [...new Set(allPairs)]; // Remove duplicates using Set
+};
 
-db.each('DELETE FROM CATEGORIES WHERE cgid > 7', (e, r) => {
-    console.log(e, r);
-})
+
+const generateData = (pairs) => {
+    const data = pairs.map(pair => (
+        {
+            // "prdid": 1,
+            "prd_name": pair,
+            "prd_salary": Math.random() * (10000 - 0.9) + 0.9,
+            "prd_create_at": 1710515526,
+            "cg_pr_id": Math.floor(Math.random() * 5) + 1
+        }
+    ));
+    return data;
+};
+
+// const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789';
+// const uniquePairs = generateUniquePairs(characters);
+// const data = generateData(uniquePairs);
+// console.log(data);
+
 
 
