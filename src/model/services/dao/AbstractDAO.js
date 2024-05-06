@@ -11,14 +11,19 @@ export default class AbstractDAO {
     }
 
     _pr = (query, isReturns) => {
-        log(query, style.fg.magenta);
-        return new Promise(
-            (res, rej) => db[isReturns ? 'all' : 'exec']
-                (query, (err, rows) => err
+        let isArray = Array.isArray(query);
+        let _one = (qr) => new Promise(
+            (res, rej) => db[isReturns ? 'each' : 'exec']
+                (qr, (err, rows) => err
                     ? rej({ message: err.message, ...err })
                     : rows ? res(rows) : res()
                 )
         );
+
+        log(isArray ? query.join('\n') : query, style.fg.magenta);
+        return isArray
+            ? Promise.all(query.map(_one))
+            : _one(query)
     }
 
     select_all(fields, by) {
@@ -44,7 +49,7 @@ export default class AbstractDAO {
             fields || this.fields,
             returns
         )
-        return this._pr(query);
+        return this._pr(query, returns);
     }
 
     delete(obj = sql._toKey(this.keyID), isAbsolute) {

@@ -26,12 +26,12 @@ function router(application, dao, path, actionFields) {
         .get(path, (req, res) => response(dao.select_all(req.query['f'] || req.body['fields'], req.body['by']), res))
         .post(path, (req, res) => {
             let { body } = req;
-            let fields = req.query['fields'] || actionFields;
+            let fields = req.query['f'] || req.query['fields'] || actionFields;
             return response(dao.insert(body, fields), res);
         })
         .put(path, (req, res) => {
             let { body } = req;
-            let fields = req.query['fields'] || actionFields;
+            let fields = req.query['f'] || req.query['fields'] || actionFields;
             return response(dao.update(body, fields), res);
         })
         .delete(path, (req, res) => {
