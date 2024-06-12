@@ -1,4 +1,5 @@
 /node_modules
+/client/assets
 
 package-lock.json
 fruit_database.db

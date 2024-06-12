@@ -5,7 +5,7 @@
   "main": "main.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon ./src/main.js",
+    "start": "node ./src/main.js",
     "test": "nodemon ./src/test/main.js",
     "db.create": "node ./src/database/db-create.js",
     "db.insert": "node ./src/database/db-insert.js",
