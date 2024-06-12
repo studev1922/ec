@@ -1,6 +1,7 @@
 import { fileHelperAPIs } from '../model/services/fileHelper.js';
 import express from 'express';
 import dao, { AbstractDAO } from '../model/services/dao.js'
+import log, { style as t } from '../utils/log.js';
 
 /**
  * 
@@ -50,12 +51,21 @@ function router(application, dao, path, actionFields) {
  * @param {express.Express} application 
  * @param {String} path 
  */
-export default function (application, path) {
+export default function (application, path, domains = ['localhost']) {
 
     // FILE APIs CONTROLLER
     const pathFolders = ['/images/user', '/images/category', '/images/product'];
     fileHelperAPIs(application, path, ...pathFolders);
 
+    application.use((_req, res, next) => {
+        domains.forEach(domain => res.setHeader("Access-Control-Allow-Origin", domain))
+        res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTION");
+        res.header("Access-Control-Allow-Headers", "Content-Type");
+        _req.headers.origin
+            ? log(`${_req.headers.origin} : ${_req.url}`, t.fg.yellow)
+            : log(_req.url, t.fg.cyan);
+        next();
+    });
 
     // Rounters
     const another_paths = [], APIs = {

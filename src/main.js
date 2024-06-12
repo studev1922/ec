@@ -10,22 +10,24 @@ const application = express();
 const ipHost = properties.HOST || 'localhost';
 const idHost2 = os.networkInterfaces()['Wi-Fi'];
 const port = properties.PORT || 8080;
-const path = properties.PATH || '/api';
+const path = properties.PATH || 'api';
 const [hostDesk, IPv4] = [
     os.hostname(),
     idHost2 ? idHost2[1]?.address : undefined
 ];
+const domains = [ipHost, IPv4, hostDesk]
+for (let i = 0; i < domains.length; i++) if (domains[i]) domains[i] = `http://${domains[i]}:${port}`;
 
 viewEngine(application); // configuration
-controller(application, path); // controller
+controller(application, path, domains); // controller
 
 // START SERVER
 application.listen(port, () => {
-    console.log('--++++++++++++++++++++++ LOCAL ++++++++++++++++++++++--');
-    for (const host of ['localhost', ipHost])
-        if (host) console.log(`- RESTapi on server http://${host}:${port}${path}`);
-
-    console.log('--++++++++++++++++++++ LAN_ACCESS +++++++++++++++++++--');
-    for (const host of [hostDesk, IPv4])
-        if (host) console.log(`- RESTapi on server http://${host}:${port}${path}`);
+    console.log('--++++++++++++++++++++++ PORT URL ++++++++++++++++++++++--');
+    for (const domain of domains)
+        if (domain) {
+            console.log('\t------------------------------------');
+            console.log(`- Client ${domain}/index.html`);
+            console.log(`- RESTapi on ${domain}/${path}`);
+        }
 });
