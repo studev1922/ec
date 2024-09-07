@@ -21,7 +21,7 @@
         </tr>
         <tr>
             <td colspan=3>
-            <em>DATABASE SCRIPTS</em>
+                <em>DATABASE SCRIPTS</em>
             </td>
         </tr>
         <tr>
@@ -34,8 +34,7 @@
             <td>Insert data into table</td>
         </tr>
         <tr>
-            <td></td>
-            <td>npm run db.show-data</td>
+            <td colspan=2>npm run db.show-data</td>
             <td>Show all data from tables</td>
         </tr>
         <tr>
