@@ -1,0 +1,23 @@
+<h2 ng-if="!data.array" class="text-center text-danger">NO DATA AVAILABLE!</h2>
+<table ng-if="data.array">
+    <thead>
+        <tr class="border-bottom">
+            <th class="text-center" ng-repeat="k in keys" ng-bind="k"></th>
+        </tr>
+        <tr>
+            <td ng-repeat="k in keys">
+                <input type="text" class="form-control" ng-model="elemt[k]">
+            </td>
+            <td colspan="2"><button class="btn btn-primary w-100" ng-click="post(path, elemt)">Create</button></td>
+        </tr>
+    </thead>
+    <tbody class="mt-1 w-100">
+        <tr ng-repeat="(i,e) in data.array">
+            <td ng-repeat="k in keys">
+                <input class="form-control" type="text" ng-model="e[k]">
+            </td>
+            <td><button class="btn btn-success">Update</button></td>
+            <td><button class="btn btn-danger">Delete</button></td>
+        </tr>
+    </tbody>
+</table>
