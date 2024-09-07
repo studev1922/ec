@@ -34,6 +34,7 @@
             <td>Insert data into table</td>
         </tr>
         <tr>
+            <td></td>
             <td>npm run db.show-data</td>
             <td>Show all data from tables</td>
         </tr>
