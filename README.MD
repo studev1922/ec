@@ -30,7 +30,6 @@
             <td>Create database</td>
         </tr>
         <tr>
-            <td>database</td>
             <td>npm run db.insert</td>
             <td>Insert data into table</td>
         </tr>
