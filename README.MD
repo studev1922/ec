@@ -20,16 +20,17 @@
             <td>main's test case</td>
         </tr>
         <tr>
-            <td style="color:yellow" colspan=3>
-            <em>npm run db.create; npm run db.insert; npm run db.show-data</em>
+            <td colspan=3>
+            <em>DATABASE SCRIPTS</em>
             </td>
         </tr>
         <tr>
-            <th rowspan=3>database</th>
+            <th rowspan=2>npm run db</th>
             <td>npm run db.create</td>
             <td>Create database</td>
         </tr>
         <tr>
+            <td>database</td>
             <td>npm run db.insert</td>
             <td>Insert data into table</td>
         </tr>
