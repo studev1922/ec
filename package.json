@@ -6,10 +6,12 @@
   "type": "module",
   "scripts": {
     "start": "node ./src/main.js",
+    "dev": "nodemon ./src/main.js",
     "test": "nodemon ./src/test/main.js",
     "db.create": "node ./src/database/db-create.js",
     "db.insert": "node ./src/database/db-insert.js",
-    "db.show-data": "node ./src/database/db-show-data.js"
+    "db.show-data": "node ./src/database/db-show-data.js",
+    "db": "node ./src/database/db-create.js | node ./src/database/db-insert.js"
   },
   "author": "studev1922",
   "license": "ISC",
