@@ -1,5 +1,5 @@
 export default {
-    db: 'private/fruit_database.db',
+    db: 'private/DATABASE.db',
     keyTable: {
         users: 'uid',
         roles: 'rid',
