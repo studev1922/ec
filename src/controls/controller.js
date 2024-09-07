@@ -19,9 +19,8 @@ async function response(_pr, res) {
 /**
  * @param {AbstractDAO} dao 
  * @param {String} path 
- * @param {Array<String>} actionFields 
  */
-function router(application, dao, path, actionFields) {
+function router(application, dao, path) {
     application.use(express.json({ limit: '10mb' }));
     application.use(express.urlencoded({ limit: '10mb', extended: true }));
 
@@ -29,13 +28,13 @@ function router(application, dao, path, actionFields) {
         .get(path, (req, res) => response(dao.select_all(req.query['f'] || req.body['fields'], req.body['by']), res))
         .post(path, (req, res) => {
             let { body } = req;
-            let fields = req.query['f'] || req.query['fields'] || actionFields;
+            let fields = req.query['f'] || req.query['fields'] || Object.keys(body);
             let returning = req.query['r'] || req.query['returning'];
             return response(dao.insert(body, fields, returning), res);
         })
         .put(path, (req, res) => {
             let { body } = req;
-            let fields = req.query['f'] || req.query['fields'] || actionFields;
+            let fields = req.query['f'] || req.query['fields'] || Object.keys(body);
             let returning = req.query['r'] || req.query['returning'];
             return response(dao.update(body, fields, returning), res);
         })
@@ -68,14 +67,10 @@ export default function (application, path, domains = ['localhost']) {
     });
 
     // Rounters
-    const another_paths = [], APIs = {
-        categories: ['cg_name', 'cg_create_at'],
-        products: ['prd_name', 'prd_salary', 'cg_pr_id'],
-        users: ['name', 'username', 'password']
-    }
-    Object.keys(APIs).forEach(key => {
+    const another_paths = [];
+    ['categories', 'products', 'users'].forEach(key => {
         another_paths.push(`/api/${key}`);
-        router(application, dao[key], `/api/${key}`, APIs[key])
+        router(application, dao[key], `/api/${key}`)
     })
 
     // another paths when not found!
