@@ -2,4 +2,4 @@
 /client/assets
 
 package-lock.json
-fruit_database.db
+*.db

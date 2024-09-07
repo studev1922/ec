@@ -44,7 +44,9 @@
         </tr>
         <tr>
             <td style="color:yellow" colspan=3>
-                <a href="http://localhost:8080/index.html">INDEX: http://localhost:8080/index.html</a>
+                <a href="http://localhost:8080/index.html" alt="http://localhost:8080/index.html">
+                    <img alt="client-demo" src="./client-demo.png">
+                </a>
             </td>
         </tr>
     </tbody>
