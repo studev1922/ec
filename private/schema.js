@@ -1,37 +1,20 @@
 export default {
     db: 'private/DATABASE.db',
     keyTable: {
-        users: 'uid',
-        roles: 'rid',
-        authorities: ['u_id', 'r_id'],
-        categories: 'cgid',
+        categories: 'cg_id',
         products: 'prdid',
     },
     tables: {
-        users: {
-            uid: 'INTEGER PRIMARY KEY AUTOINCREMENT',
-            name: 'TEXT NOT NULL',
-            username: 'TEXT NOT NULL',
-            password: 'TEXT NOT NULL'
-        },
-        roles: {
-            rid: 'INTEGER PRIMARY KEY AUTOINCREMENT',
-            r_name: 'TEXT NOT NULL',
-        },
-        authorities: {
-            u_id: 'INTEGER REFERENCES USERS(uid) ON UPDATE CASCADE ON DELETE CASCADE',
-            r_id: 'INTEGER REFERENCES ROLES(rid) ON UPDATE CASCADE ON DELETE RESTRICT, UNIQUE(u_id, r_id)'
-        },
         categories: {
-            cgid: 'INTEGER PRIMARY KEY AUTOINCREMENT',
-            cg_name: 'TEXT UNIQUE',
-            cg_create_at: "INTEGER DEFAULT (strftime('%s', CURRENT_TIMESTAMP))"
+            cg_id: 'INTEGER PRIMARY KEY AUTOINCREMENT',
+            cg_name: 'TEXT UNIQUE'
         },
         products: {
-            prdid: 'INTEGER PRIMARY KEY AUTOINCREMENT',
+            pr_id: 'INTEGER PRIMARY KEY AUTOINCREMENT',
+            image: "TEXT",
             prd_name: 'TEXT',
             prd_salary: 'REAL',
-            prd_create_at: "INTEGER DEFAULT (strftime('%s', CURRENT_TIMESTAMP))",
+            prd_registered: "INTEGER DEFAULT (strftime('%s', CURRENT_TIMESTAMP))",
             cg_pr_id: 'INTEGER REFERENCES CATEGORIES(cgid) ON UPDATE CASCADE ON DELETE RESTRICT',
         }
     }
