@@ -6,4 +6,13 @@ export default {
             time_out ? setTimeout(() => reject(error), time_out) : reject(error);
         }
     }),
+    generateSecret(length) {
+        const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+=-`~[]\{}|;':\",./<>?";
+        let secret = "";
+        for (let i = 0; i < length; i++) {
+            const randomIndex = Math.floor(Math.random() * characters.length);
+            secret += characters.charAt(randomIndex);
+        }
+        return secret;
+    },
 }
