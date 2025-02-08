@@ -67,6 +67,6 @@ export default class AbstractDAO {
 
     delete(obj = sql._toKey(this.keyID), isAbsolute) {
         let query = sql.qDelete(this.table, obj, isAbsolute);
-        return this._pr(query, exec);
+        return this._pr(query, 'exec');
     }
 }

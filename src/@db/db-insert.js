@@ -1,6 +1,6 @@
 import data from '../../private/data.js';
 import sqlHelper from './sql-helper.js';
-import { utils, schema } from '../index.js';
+import { utils, schema } from '../map.js';
 import { db } from './AbstractDAO.js';
 const log = utils.log.default;
 const t = utils.log.style;

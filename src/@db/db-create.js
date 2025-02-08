@@ -1,5 +1,5 @@
 import sqlHelper from './sql-helper.js';
-import { utils, schema } from '../index.js';
+import { utils, schema } from '../map.js';
 import { db } from './AbstractDAO.js';
 const log = utils.log.default;
 const t = utils.log.style;
@@ -15,3 +15,5 @@ const t = utils.log.style;
     });
     log('TABLES HAVE BEEN CREATED.', t.fg.yellow);
 })(Object.keys(schema.tables));
+
+db.exec('PRAGMA foreign_keys = ON;', console.log);
