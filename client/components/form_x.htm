@@ -1,4 +1,5 @@
 <h2 ng-if="!data.array" class="text-center text-danger">NO DATA AVAILABLE!</h2>
+<h3 class="text-center text-warning">{{data.status}}</h3>
 <table ng-if="data.array">
     <thead>
         <tr class="border-bottom">
@@ -16,8 +17,8 @@
             <td ng-repeat="k in keys">
                 <input class="form-control" type="text" ng-model="e[k]">
             </td>
-            <td><button class="btn btn-success">Update</button></td>
-            <td><button class="btn btn-danger">Delete</button></td>
+            <td><button class="btn btn-success" ng-click="update(path, e)">Update</button></td>
+            <td><button class="btn btn-danger" ng-click="delete(path, i)">Delete</button></td>
         </tr>
     </tbody>
 </table>
