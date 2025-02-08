@@ -1,10 +1,8 @@
 import express from 'express';
-import { path, domains, services, utils, schema } from '../map.js';
+import { path, services, schema } from '../map.js';
 import dao from '../model/dao/index.js';
 
 const { fileHelperAPIs } = services.fileHelper;
-const log = utils.log.default;
-const t = utils.log.style;
 
 
 /**
@@ -32,12 +30,14 @@ function router(app, dao, path) {
         let { body } = req;
         let fields = req.query['f'] || req.query['fields'] || Object.keys(body);
         let returning = req.query['r'] || req.query['returning'];
+
         return response(dao.insert(body, fields, returning), res);
     });
     app.put(path, (req, res) => {
         let { body } = req;
         let fields = req.query['f'] || req.query['fields'] || Object.keys(body);
         let returning = req.query['r'] || req.query['returning'];
+
         return response(dao.update(body, fields, returning), res);
     });
     app.delete(path, (req, res) => {
@@ -51,16 +51,6 @@ export default function (app, pathFolders = []) {
 
     // FILE APIs CONTROLLER
     fileHelperAPIs(app, path, ...pathFolders);
-
-    app.use((_req, res, next) => {
-        domains.forEach(domain => res.setHeader("Access-Control-Allow-Origin", domain))
-        res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTION");
-        res.header("Access-Control-Allow-Headers", "Content-Type");
-        _req.headers.origin
-            ? log(`${_req.headers.origin} : ${_req.url}`, t.fg.yellow)
-            : log(_req.url, t.fg.cyan);
-        next();
-    });
 
     // Rounters
     const another_paths = [];
