@@ -2,7 +2,7 @@ export default {
     db: 'private/DATABASE.db',
     keyTable: {
         categories: 'cg_id',
-        products: 'prdid',
+        products: 'pr_id',
     },
     tables: {
         categories: {
