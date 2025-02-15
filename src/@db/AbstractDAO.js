@@ -5,7 +5,7 @@ import { utils, schema } from '../map.js';
 const log = utils.log.default;
 const t = utils.log.style;
 const sql = sqlHelper;
-const db = new sqlite3.Database(schema.db);
+const db = new sqlite3.Database(schema.db); // CREATE DATABASE
 
 export { db }
 export default class AbstractDAO {

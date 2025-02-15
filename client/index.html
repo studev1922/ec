@@ -31,9 +31,11 @@
                     <code ng-bind="data.phone"></code>
                 </p>
             </h2>
-            <div class="m-auto w-50">
+            <div class="m-auto w-50 d-flex align-items-center">
+                <div class="text-label" ng-if="data.array.length">Records {{data.array.length}}</div>
                 <select class="form-select" ng-options="path for path in dataPaths" ng-model="path"
-                    ng-change="get(path)" ng-init="path=dataPaths[0]"></select>
+                    ng-change="get(path)" ng-init="path=dataPaths[0]">
+                </select>
             </div>
         </div>
         <ng-include class="container-xxl d-flex justify-content-center" src="'components/form_x.htm'"></ng-include>

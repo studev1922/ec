@@ -4,7 +4,7 @@ import { db } from './AbstractDAO.js';
 const log = utils.log.default;
 const t = utils.log.style;
 
-// CREATE DATABASE
+// CREATE TABLES
 ; ((tableNames = []) => {
     if (!tableNames.length) return;
     log('CREATING ALL TABLES...', t.fg.yellow);
@@ -15,5 +15,3 @@ const t = utils.log.style;
     });
     log('TABLES HAVE BEEN CREATED.', t.fg.yellow);
 })(Object.keys(schema.tables));
-
-db.exec('PRAGMA foreign_keys = ON;', console.log);

@@ -3,7 +3,9 @@
 <table ng-if="data.array">
     <thead>
         <tr class="border-bottom">
-            <th class="text-center" ng-repeat="k in keys" ng-bind="k"></th>
+            <th class="text-center" ng-repeat="k in keys">
+                <label ng-click="data.byField = data.byField===k ? -k : k" ng-bind="k"></label>
+            </th>
         </tr>
         <tr>
             <td ng-repeat="k in keys">
@@ -13,7 +15,7 @@
         </tr>
     </thead>
     <tbody class="mt-1 w-100">
-        <tr ng-repeat="(i,e) in data.array">
+        <tr ng-repeat="(i,e) in data.array | orderBy: [data.byField]">
             <td ng-repeat="k in keys">
                 <input class="form-control" type="text" ng-model="e[k]">
             </td>

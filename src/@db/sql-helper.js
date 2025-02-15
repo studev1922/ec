@@ -47,8 +47,8 @@ const create = {
      * @returns {String} new query generated.
      */
     trigger: (trigger_name, isAfter, actions = ['INSERT'], on_table, trigger_body = '') => `CREATE TRIGGER ${trigger_name} ${isAfter ? 'AFTER' : 'BEFORE'} ${Array.isArray(actions) ? actions.join(' OR ') : actions} ON ${on_table} FOR EACH ROW BEGIN ${trigger_body} END;`,
-    triggerDropOnExist: (trigger_name, isAfter, actions = ['INSERT'], on_table, trigger_body = '') => `DROP TRIGGER IF EXISTS ${table_name};\n${create.trigger(trigger_name, isAfter, actions, on_table, trigger_body)}`,
-    triggerIfNotExist: (trigger_name, isAfter, actions = ['INSERT'], on_table, trigger_body = '') => `DROP TRIGGER IF EXISTS ${table_name};\n${create.trigger(trigger_name, isAfter, actions, on_table, trigger_body)}`,
+    triggerDropOnExist: (trigger_name, isAfter, actions = ['INSERT'], on_table, trigger_body = '') => `DROP TRIGGER IF EXISTS ${trigger_name};\n${create.trigger(trigger_name, isAfter, actions, on_table, trigger_body)}`,
+    triggerIfNotExist: (trigger_name, isAfter, actions = ['INSERT'], on_table, trigger_body = '') => `DROP TRIGGER IF EXISTS ${trigger_name};\n${create.trigger(trigger_name, isAfter, actions, on_table, trigger_body)}`,
 }
 
 const qSelect = (table, fields = '*', by, isAbsolute) => `SELECT ${fields} FROM ${table} ${by ? 'WHERE ' + _conditions(by, isAbsolute) : ''}`;

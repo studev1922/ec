@@ -11,11 +11,11 @@ export default {
         },
         products: {
             pr_id: 'INTEGER PRIMARY KEY AUTOINCREMENT',
-            image: "TEXT",
+            prd_image_path: "TEXT",
             prd_name: 'TEXT',
-            prd_salary: 'REAL',
+            prd_price: 'NUMERIC(10, 2)',
             prd_registered: "INTEGER DEFAULT (strftime('%s', CURRENT_TIMESTAMP))",
-            cg_pr_id: 'INTEGER REFERENCES CATEGORIES(cgid) ON UPDATE CASCADE ON DELETE RESTRICT',
+            cg_pr_id: 'INTEGER REFERENCES CATEGORIES(cg_id) ON UPDATE CASCADE ON DELETE RESTRICT',
         }
     }
 }

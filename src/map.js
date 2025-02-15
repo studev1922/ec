@@ -12,7 +12,7 @@ import services from './model/services/index.js';
 const properties = dotenv.config().parsed;
 const path = properties.PATH || 'api';
 const origins = JSON.parse(properties.ORIGINS || '["http://localhost:8080", "http://localhost:5500"]');
-const domains = ['localhost'];
+const domains = JSON.parse(properties.DOMAINS || '["localhost"]');
 
 export {
     path,
