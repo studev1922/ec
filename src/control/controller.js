@@ -1,9 +1,6 @@
 import express from 'express';
-import { path, services, schema } from '../map.js';
+import { path, fileHelper, schema } from '../map.js';
 import dao from '../model/dao/index.js';
-
-const { fileHelperAPIs } = services.fileHelper;
-
 
 /**
  * 
@@ -50,7 +47,7 @@ function router(app, dao, path) {
 export default function (app, pathFolders = []) {
 
     // FILE APIs CONTROLLER
-    fileHelperAPIs(app, path, ...pathFolders);
+    fileHelper.fileHelperAPIs(app, path, ...pathFolders);
 
     // Rounters
     const another_paths = [];

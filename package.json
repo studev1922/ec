@@ -7,6 +7,7 @@
   "scripts": {
     "start": "node ./src/main.js",
     "dev": "nodemon ./src/main.js",
+    "test": "nodemon ./test/main.js",
     "db.create": "node ./src/@db/db-create.js",
     "db.insert": "node ./src/@db/db-insert.js",
     "db.show-data": "node ./src/@db/db-show-data.js",

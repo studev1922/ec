@@ -3,10 +3,8 @@ import sql from './@db/sql-helper.js';
 
 // project
 import schema from '../private/schema.js';
-// utils
 import utils from './utils/index.js';
-// services
-import services from './model/services/index.js';
+import * as fileHelper from './model/services/fileHelper.js';
 
 // VARIABLES
 const properties = dotenv.config().parsed;
@@ -21,6 +19,6 @@ export {
     utils,
     sql,
     schema,
-    services
+    fileHelper
 }
 
