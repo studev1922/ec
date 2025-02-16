@@ -40,7 +40,7 @@ function router(app, dao, path) {
     app.delete(path, (req, res) => {
         let { body, query } = req, isAbsolute = query['isAbsolute'];
         isAbsolute = typeof isAbsolute == 'undefined' ? undefined : /true/.test(isAbsolute);
-        return response(dao.delete(body, isAbsolute), res);
+        return response(dao.(body, isAbsolute), res);
     });
 }
 
@@ -64,5 +64,4 @@ export default function (app, pathFolders = []) {
             message: `'${req.url}' not found!`,
         })
     );
-
 };

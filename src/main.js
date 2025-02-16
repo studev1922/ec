@@ -14,6 +14,7 @@ const port = properties.PORT || 8080;
 
 viewEngine(app); // configuration
 controller(app, ['/images/product']); // controller
+
 app.listen(port, () => { // START SERVER
     console.log('--++++++++++++++++++++++ PORT URL ++++++++++++++++++++++--');
     for (const domain of origins)

@@ -1,9 +1,10 @@
 import dotenv from "dotenv";
-import sql from './@db/sql-helper.js';
 
 // project
+import sql from './@db/sql-helper.js';
 import schema from '../private/schema.js';
 import utils from './utils/index.js';
+import jsonToken from './model/services/jsonToken.js';
 import * as fileHelper from './model/services/fileHelper.js';
 
 // VARIABLES
@@ -19,6 +20,7 @@ export {
     utils,
     sql,
     schema,
-    fileHelper
+    fileHelper,
+    jsonToken
 }
 
