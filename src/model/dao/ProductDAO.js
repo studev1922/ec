@@ -1,10 +1,10 @@
 import { schema, sql, utils } from "../../map.js";
 import AbstractDAO from "../../@db/AbstractDAO.js";
 
+const NAME = 'products';
 class dao extends AbstractDAO {
-    #NAME = 'products';
     constructor() {
-        super(this.#NAME.toUpperCase(), schema.tables[this.#NAME], schema.keyTable[this.#NAME])
+        super(NAME.toUpperCase(), schema.tables[NAME], schema.keyTable[NAME])
     }
 }
 
