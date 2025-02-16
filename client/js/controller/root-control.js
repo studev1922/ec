@@ -20,10 +20,10 @@ app.controller('control', ($scope, $http) => {
         $scope.status = err.message
     }
 
-    $scope.get = (path) => $http.get(`${server}/api/${path}`)
+    $scope.get = (path, page, qty) => $http.get(`${server}/api/${path}?page=${page}&qty=${qty}`)
         .then(rs => {
             $scope.data.array = rs.data
-        }).catch(pErr).finally(_ => $scope.keys = $scope.data.array[0] ? Object.keys($scope.data.array[0]) : []);
+        }).catch(pErr).finally(_ => $scope.keys = $scope.data.array[0] ? Object.keys($scope.data.array[0]) : [])
 
 
     $scope.post = (path) => {

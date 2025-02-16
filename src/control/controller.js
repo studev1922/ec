@@ -27,7 +27,6 @@ function router(app, dao, path) {
         if (page) return response(dao.select_page(page, req.query.qty, fs, by), res);
         return response(dao.select_all(fs, by), res);
     });
-
     app.post(path, (req, res) => {
         let { body } = req;
         let fields = req.query['f'] || req.query['fields'] || Object.keys(body);
