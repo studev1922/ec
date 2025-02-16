@@ -4,7 +4,7 @@ import AbstractDAO from "../../@db/AbstractDAO.js";
 const NAME = 'products';
 class dao extends AbstractDAO {
     constructor() {
-        super(NAME.toUpperCase(), schema.tables[NAME], schema.keyTable[NAME])
+        super(NAME.toUpperCase(), Object.keys(schema.tables[NAME]), schema.keyTable[NAME])
     }
 }
 

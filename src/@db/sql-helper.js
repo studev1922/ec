@@ -91,8 +91,12 @@ const qUpdate = (table, data, by, fields, returning) => {
     return isArray ? data.map(_updateOne) : _updateOne(data);
 }
 const qDelete = (table, obj = { id: -1 }, isAbsolute = true) => `DELETE FROM ${table} WHERE ${_conditions(obj, isAbsolute)}`;
+const options = {
+    select_page: (table, fields, qty, page, by) => `${qSelect(table, fields, by)} LIMIT ${qty} OFFSET ${page}`
+}
+
 
 export default {
-    actions, create,
+    actions, create, options,
     qSelect, qInsert, qUpdate, qDelete
 };

@@ -1,6 +1,6 @@
 import express from 'express';
 import { path, fileHelper, schema } from '../map.js';
-import dao from '../model/dao/index.js';
+import daoes from '../model/dao/index.js';
 
 /**
  * 
@@ -22,7 +22,12 @@ function router(app, dao, path) {
     app.use(express.json({ limit: '10mb' }));
     app.use(express.urlencoded({ limit: '10mb', extended: true }));
 
-    app.get(path, (req, res) => response(dao.select_all(req.query['f'] || req.body['fields'], req.body['by']), res));
+    app.get(path, (req, res) => {
+        let page = req.query?.page, fs = req.query['f'] || req.body['fields'], by = req.body['by'];
+        if (page) return response(dao.select_page(page, req.query.qty, fs, by), res);
+        return response(dao.select_all(fs, by), res);
+    });
+
     app.post(path, (req, res) => {
         let { body } = req;
         let fields = req.query['f'] || req.query['fields'] || Object.keys(body);
@@ -54,7 +59,7 @@ export default function (app, pathFolders = []) {
 
     Object.keys(schema.keyTable).forEach(key => {
         another_paths.push(`/api/${key}`);
-        router(app, dao[key], `/api/${key}`)
+        router(app, daoes[key], `/api/${key}`)
     })
 
     // another paths when not found!

@@ -14,7 +14,7 @@ export default {
             prd_image_path: "TEXT",
             prd_name: 'TEXT',
             prd_price: 'NUMERIC(10, 2)',
-            prd_registered: "INTEGER DEFAULT (strftime('%s', CURRENT_TIMESTAMP))",
+            // prd_registered: "INTEGER DEFAULT (strftime('%s', CURRENT_TIMESTAMP))",
             pr_cg_id: 'INTEGER REFERENCES CATEGORIES(cg_id) ON UPDATE CASCADE ON DELETE RESTRICT',
         }
     }

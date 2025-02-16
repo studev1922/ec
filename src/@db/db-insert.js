@@ -21,7 +21,14 @@ const RESET_DATA = true;
 
     log('DATA INSERTING INTO TABLE...', t.fg.yellow);
     tableNames.forEach(tableName => {
-        let sql = sqlHelper.qInsert(tableName.toUpperCase(), data[tableName], '*', undefined);
+        let fields = Object.keys(schema.tables[tableName]);
+        data[tableName].map(item => {
+            const obj = {};
+            for (const field in fields) obj[field] = item[field]
+            return obj;
+        });
+        
+        let sql = sqlHelper.qInsert(tableName.toUpperCase(), data[tableName], fields, undefined);
         log(sql, '\n', t.fg.blue);
         db.all(sql, (err, rows) => err ? log(err.message, t.fg.red) : console.log(rows));
     });

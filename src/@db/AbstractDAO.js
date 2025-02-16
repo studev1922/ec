@@ -39,6 +39,11 @@ export default class AbstractDAO {
             : _one(query)
     }
 
+    select_page(page, qty = 10, fields = this.fields, by) {
+        let query = sql.options.select_page(this.table, fields, qty, page, by);
+        return this._pr(query, this._CALL.all);
+    }
+
     select_all(fields, by) {
         let query = sql.qSelect(this.table, fields || this.fields, by);
         return this._pr(query, this._CALL.all);
