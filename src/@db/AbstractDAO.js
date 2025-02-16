@@ -39,12 +39,12 @@ export default class AbstractDAO {
             : _one(query)
     }
 
-    _select_all(fields, by) {
+    select_all(fields, by) {
         let query = sql.qSelect(this.table, fields || this.fields, by);
         return this._pr(query, this._CALL.all);
     }
 
-    _insert(data, fields, returns = '*') {
+    insert(data, fields, returns = '*') {
         let query = sql.qInsert(
             this.table,
             data,
@@ -54,7 +54,7 @@ export default class AbstractDAO {
         return this._pr(query, this._CALL[returns ? 'each' : 'exec']);
     }
 
-    _update(data, fields, returns = '*') {
+    update(data, fields, returns = '*') {
         let query = sql.qUpdate(
             this.table,
             data,
@@ -65,7 +65,7 @@ export default class AbstractDAO {
         return this._pr(query, this._CALL[returns ? 'each' : 'exec']);
     }
 
-    _delete(obj = sql._toKey(this.keyID), isAbsolute) {
+    delete(obj = sql._toKey(this.keyID), isAbsolute) {
         let query = sql.qDelete(this.table, obj, isAbsolute);
         return this._pr(query, 'exec');
     }
