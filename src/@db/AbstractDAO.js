@@ -7,15 +7,9 @@ const t = utils.log.style;
 const sql = sqlHelper;
 const db = new sqlite3.Database(schema.db); // CREATE DATABASE
 
+await utils.promise(_ => db.exec('PRAGMA foreign_keys = ON;'), 5e2);
 export { db }
 export default class AbstractDAO {
-
-    _CALL = {
-        exec: 'exec',
-        get: 'get',
-        all: 'all',
-        each: 'each'
-    }
 
     constructor(table, fields, keyID) {
         this.table = table;
@@ -41,12 +35,12 @@ export default class AbstractDAO {
 
     select_page(page, qty = 10, fields = this.fields, by) {
         let query = sql.options.select_page(this.table, fields, qty, --page * qty, by);
-        return this._pr(query, this._CALL.all);
+        return this._pr(query, 'all');
     }
 
     select_all(fields, by) {
         let query = sql.qSelect(this.table, fields || this.fields, by);
-        return this._pr(query, this._CALL.all);
+        return this._pr(query, 'all');
     }
 
     insert(data, fields, returns = '*') {
@@ -56,7 +50,7 @@ export default class AbstractDAO {
             fields || this.fields,
             returns
         );
-        return this._pr(query, this._CALL[returns ? 'each' : 'exec']);
+        return this._pr(query, returns ? 'each' : 'exec');
     }
 
     update(data, fields, returns = '*') {
@@ -67,7 +61,7 @@ export default class AbstractDAO {
             fields || this.fields,
             returns
         )
-        return this._pr(query, this._CALL[returns ? 'each' : 'exec']);
+        return this._pr(query, returns ? 'each' : 'exec');
     }
 
     delete(obj = sql._toKey(this.keyID), isAbsolute) {

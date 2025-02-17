@@ -13,7 +13,7 @@ const RESET_DATA = true;
         log('DELETE ALL DATA FROM TABLES...', t.fg.yellow);
         tableNames.forEach(tableName => {
             let sql = `DELETE FROM ${tableName}`;
-            log(sql, '\n', t.fg.blue);
+            log(sql, t.fg.blue);
             db.exec(sql);
         })
         log('DELETION COMPLATE.', t.fg.yellow);
