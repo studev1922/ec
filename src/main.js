@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import express from 'express';
 
-import { origins } from './map.js';
+import { domains } from './map.js';
 // configuration
 import configuration from './config/configuration.js';
 // control
@@ -17,7 +17,7 @@ controller(app, ['/images/product']); // controller
 
 app.listen(port, () => { // START SERVER
     console.log('--++++++++++++++++++++++ PORT URL ++++++++++++++++++++++--');
-    for (const domain of origins)
+    for (const domain of domains)
         if (domain) {
             console.log('\t------------------------------------');
             // console.log(`- Client ${domain}/index.html`);
