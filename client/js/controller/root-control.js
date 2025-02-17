@@ -20,7 +20,7 @@ app.controller('control', ($scope, $http) => {
         $scope.status = err.message
     }
 
-    $scope.get = (path, page, qty) => $http.get(`${server}/api/${path}?page=${page}&qty=${qty}`)
+    $scope.get = (path, page=0, qty=10) => $http.get(`${server}/api/${path}`) //?page=${page}&qty=${qty}
         .then(rs => {
             $scope.data.array = rs.data
         }).catch(pErr).finally(_ => $scope.keys = $scope.data.array[0] ? Object.keys($scope.data.array[0]) : [])
