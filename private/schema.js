@@ -15,7 +15,7 @@ export default {
             prd_name: 'TEXT',
             prd_price: 'NUMERIC(10, 2)',
             prd_registered: "INTEGER DEFAULT (strftime('%s', CURRENT_TIMESTAMP))",
-            pr_cg_id: 'INTEGER, FOREIGN KEY (pr_cg_id) REFERENCES CATEGORIES(cg_id) ON UPDATE CASCADE ON DELETE CASCADE',
+            pr_cg_id: 'INTEGER, FOREIGN KEY (pr_cg_id) REFERENCES CATEGORIES(cg_id) ON UPDATE CASCADE ON DELETE RETRICT',
         }
     }
 }
