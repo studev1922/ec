@@ -3,7 +3,7 @@ import express from 'express';
 
 import { origins } from './map.js';
 // configuration
-import viewEngine from './config/view-engine.js';
+import configuration from './config/configuration.js';
 // control
 import controller from './control/controller.js';
 
@@ -12,7 +12,7 @@ const properties = dotenv.config().parsed;
 const app = express();
 const port = properties.PORT || 8080;
 
-viewEngine(app); // configuration
+configuration(app); // authentication, assets static
 controller(app, ['/images/product']); // controller
 
 app.listen(port, () => { // START SERVER

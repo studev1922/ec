@@ -10,13 +10,13 @@ import * as fileHelper from './model/services/fileHelper.js';
 // VARIABLES
 const properties = dotenv.config().parsed;
 const path = properties.PATH || 'api';
-const origins = JSON.parse(properties.ORIGINS || '["http://localhost:8080", "http://localhost:5500"]');
-const domains = JSON.parse(properties.DOMAINS || '["localhost"]');
+const allowOrigins = JSON.parse(properties.ALLOW_ORIGINS || '["http://localhost:8080", "http://localhost:5500"]');
+const domains = JSON.parse(properties.DOMAINS || '["http://localhost:8080"]');
 
 export {
     path,
     domains,
-    origins,
+    allowOrigins,
     utils,
     sql,
     schema,

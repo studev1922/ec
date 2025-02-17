@@ -2,8 +2,7 @@ import fs from 'fs'
 import cors from "cors";
 import dotenv from 'dotenv';
 import express from 'express';
-import { origins, jsonToken } from '../map.js';
-
+import { allowOrigins, jsonToken } from '../map.js';
 const properties = dotenv.config().parsed;
 const { STATIC_FOLDER } = properties;
 const authenticateJWT = (req, res, next) => {
@@ -17,20 +16,20 @@ const authenticateJWT = (req, res, next) => {
         } catch (err) {
             return res.status(403).json(err);
         }
-    else res.status(401).json({ message: 'invalid authentication credentials.', path: origins[0] + '/api/login' })
+    else res.status(401).json({ message: 'invalid authentication credentials.', path: allowOrigins[0] + '/api/login' })
 };
 
 /**
  * 
  * @param {express.Express} app 
  */
-export default function viewEngine(app) {
+export default function configuration(app) {
     if (!fs.existsSync(STATIC_FOLDER)) fs.mkdirSync(STATIC_FOLDER, { recursive: true });
     app.use(express.static(STATIC_FOLDER)); // PUBLIC FOLDER
     app.use(express.static('client'));
 
     app.use(cors({
-        origin: (origin, callback) => !origin || origins.includes(origin) ? callback(null, true) : callback(new Error('Not allowed by CORS'))
+        origin: (origin, callback) => !origin || allowOrigins.includes(origin) ? callback(null, true) : callback(new Error('Not allowed by CORS'))
     }));
 
     // app.use('/api', (req, res, next) => {
