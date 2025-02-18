@@ -12,6 +12,7 @@ const RESET_DATA = true;
     if (RESET_DATA) {
         log('DELETE ALL DATA FROM TABLES...', t.fg.yellow);
         tableNames.forEach(tableName => {
+            if(!data[tableName]) return;
             let sql = `DELETE FROM ${tableName}`;
             log(sql, t.fg.blue);
             db.exec(sql);
@@ -21,6 +22,7 @@ const RESET_DATA = true;
 
     log('DATA INSERTING INTO TABLE...', t.fg.yellow);
     tableNames.forEach(tableName => {
+        if(!data[tableName]) return;
         let fields = Object.keys(schema.tables[tableName]);
         data[tableName].map(item => {
             const obj = {};
