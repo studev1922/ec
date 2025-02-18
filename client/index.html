@@ -40,9 +40,10 @@
                     ng-change="get(path, page, qty)" min="10">
                 <div class="text-label" ng-if="data.array.length">Page</div>
                 <input type="number" class="form-control" ng-model="page" ng-init="page=0" -->
-                    <!-- ng-change="get(path, page, qty)" min="1"> -->
+                <!-- ng-change="get(path, page, qty)" min="1"> -->
             </div>
         </div>
+        <h3 class="text-center text-warning">{{state}}</h3>
         <ng-include class="container-xxl d-flex justify-content-center" src="'components/form_x.htm'"></ng-include>
     </div>
 </body>

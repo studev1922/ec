@@ -15,15 +15,22 @@ app.controller('control', ($scope, $http) => {
         products: 'pr_id',
     }
     $scope.elemt = {};
-    function pErr(err) {
-        console.error(err);
+
+    function handleErr(err) {
+        if (err.status === 500) {
+            switch (err.data.errno) {
+                case 19: $scope.state = 'Cannot delete constraint data!'; break;
+            }
+        }
         $scope.status = err.message
+        return err
     }
 
-    $scope.get = (path, page=0, qty=10) => $http.get(`${server}/api/${path}`) //?page=${page}&qty=${qty}
+    $scope.get = (path, page = 0, qty = 10) => $http.get(`${server}/api/${path}`) //?page=${page}&qty=${qty}
         .then(rs => {
             $scope.data.array = rs.data
-        }).catch(pErr).finally(_ => $scope.keys = $scope.data.array[0] ? Object.keys($scope.data.array[0]) : [])
+            $scope.state = `GET ${rs.data.length} items from ${server}/api/${path}`
+        }).catch(handleErr).finally(_ => $scope.keys = $scope.data.array[0] ? Object.keys($scope.data.array[0]) : [])
 
 
     $scope.post = (path) => {
@@ -31,15 +38,16 @@ app.controller('control', ($scope, $http) => {
             .then(rs => {
                 $scope.data.array.push(rs.data);
                 Object.assign($scope.elemt, rs.data);
-            }).catch(pErr)
+                $scope.state = `POST element to ${server}/api/${path} : ${JSON.stringify(rs.data)}`
+            }).catch(handleErr)
     }
 
     $scope.update = (path, elemt) => {
         if (elemt) $http.put(`${server}/api/${path}`, elemt)
             .then(rs => {
-                $scope.data.array.push(rs.data);
                 Object.assign(elemt, rs.data);
-            }).catch(pErr)
+                $scope.state = `PUT element to ${server}/api/${path} : ${JSON.stringify(rs.data)}`
+            }).catch(handleErr)
     }
 
     $scope.delete = (path, index) => {
@@ -54,6 +62,6 @@ app.controller('control', ($scope, $http) => {
                 data
             }).then(_rs => {
                 $scope.data.array?.splice(index, 1);
-            }).catch(pErr)
+            }).catch(handleErr)
     }
 });
